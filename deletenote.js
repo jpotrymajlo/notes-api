@@ -3,11 +3,12 @@ import AWS from "aws-sdk";
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 export const main = async (event, context) => {
+
     const params = {
         TableName: process.env.tableName,
-        KeyConditionExpression: "userId = :userId",
-        ExpressionAttributeValues: {
-            ":userId" : event.requestContext.identity.cognitoIdentityId
+        Key: {
+            userId: event.requestContext.identity.cognitoIdentityId,
+            notesId: event.pathParameters.id
         }
     };
 
@@ -17,20 +18,21 @@ export const main = async (event, context) => {
     };
 
     try {
-        const result = await dynamoDb.query(params).promise();
+        await dynamoDb.delete(params).promise();
 
-        return {
+        return  {
             statusCode: 200,
             headers: headers,
-            body: result.Items
+            body: {status: true}
         };
+
+
     } catch (err) {
 
-        return {
-            statusCode: 500,
+        return  {
+            statusCode: 200,
             headers: headers,
-            body: JSON.stringify({error: err})
+            body: {status: err}
         };
     }
-
 };

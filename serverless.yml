@@ -129,6 +129,15 @@ functions:
           method: get
           cors: true
           authorized: aws_iam
+  delete:
+    handler: deletenote.main
+    events:
+      - http:
+          path: notes/{id}
+          method: delete
+          cors: true
+          authorized: aws_iam
+
 
 # you can add CloudFormation resource templates here
 #resources:
