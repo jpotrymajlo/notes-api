@@ -140,7 +140,9 @@ functions:
 
 
 # you can add CloudFormation resource templates here
-#resources:
+resources:
+   # API geteeway errrors
+  - ${file(resources/api-gateway-errors.yml)}
 #  Resources:
 #    NewResource:
 #      Type: AWS::S3::Bucket
