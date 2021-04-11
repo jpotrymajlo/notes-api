@@ -121,8 +121,14 @@ functions:
           method: get
           cors: true
           authorized: aws_iam
-
-
+  notes:
+    handler: listnotes.main
+    events:
+      - http:
+          path: notes
+          method: get
+          cors: true
+          authorized: aws_iam
 
 # you can add CloudFormation resource templates here
 #resources:
