@@ -120,7 +120,7 @@ functions:
           path: notes/{id}
           method: get
           cors: true
-          authorized: aws_iam
+          authorizer: aws_iam
   notes:
     handler: listnotes.main
     events:
@@ -128,7 +128,7 @@ functions:
           path: notes
           method: get
           cors: true
-          authorized: aws_iam
+          authorizer: aws_iam
   delete:
     handler: deletenote.main
     events:
@@ -136,7 +136,7 @@ functions:
           path: notes/{id}
           method: delete
           cors: true
-          authorized: aws_iam
+          authorizer: aws_iam
 
 
 # you can add CloudFormation resource templates here

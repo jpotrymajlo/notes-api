@@ -11,7 +11,7 @@ export const main = async (event, context, callback) => {
         Item: {
             userId: event.requestContext.identity.cognitoIdentityId,
             notesId: uuid.v1(),
-            content: data.content,
+            content: data,
             createAt: Date.now()
         }
     };
@@ -27,7 +27,8 @@ export const main = async (event, context, callback) => {
         const responseOk = {
             statusCode: 200,
             headers: headers,
-            body: params.Item
+            body: JSON.stringify(params.Item),
+            isBase64Encoded: false
         };
         callback(null, responseOk);
     }
@@ -35,7 +36,8 @@ export const main = async (event, context, callback) => {
         const responseFail = {
             statusCode: 500,
             headers: headers,
-            body: JSON.stringify({error: err})
+            body: JSON.stringify({error: err}),
+            isBase64Encoded: false
         };
         callback(null, responseFail);
     }

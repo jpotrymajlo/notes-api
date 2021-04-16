@@ -15,22 +15,23 @@ export const main = async (event, context) => {
         "Access-Control-Allow-Origin" : "*",
         "Access-Control-Allow-Credentials" : true
     };
-
     try {
+
         const result = await dynamoDb.query(params).promise();
 
         return {
             statusCode: 200,
             headers: headers,
-            body: result.Items
+            body: JSON.stringify(result.Items),
+            isBase64Encoded: false
         };
     } catch (err) {
 
         return {
             statusCode: 500,
             headers: headers,
-            body: JSON.stringify({error: err})
+            body: JSON.stringify({ error: err }),
+            isBase64Encoded: false
         };
     }
-
 };
